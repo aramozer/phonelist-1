@@ -27,15 +27,20 @@ def save_phonelist(C):
     cur = C.cursor()
     try:
         cur.execute("COMMIT;")
+        print("Phonelist saved!")
     except:
         print("No changes!")
     cur.close()
 
-print('''Hello and welcome to the phone list, available commands:
+list_of_inst = ('''Hello and welcome to the phone list, available commands:
 add - add a phone number
 delete - delete a contact
 list - list all phone numbers
+save - save the list
+help - for list of commands
 quit - quit the program''')
+
+print(list_of_inst)
 
 while True: ## REPL - Read Execute Program Loop
     cmd = input("Command: ").upper()
@@ -48,6 +53,11 @@ while True: ## REPL - Read Execute Program Loop
     elif cmd == "DELETE":
         name = input("  Name: ")
         delete_phone(conn, name)
+    elif cmd == "SAVE":
+        save_phonelist(conn)
+    elif cmd == "HELP":
+        print(list_of_inst)
+        save_phonelist(conn)
     elif cmd == "QUIT":
         save_phonelist(conn)
         exit()
